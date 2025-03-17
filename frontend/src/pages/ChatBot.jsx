@@ -22,10 +22,11 @@ const ChatBot = ({ setIsLoggedIn }) => {
     setLoading(true);
 
     try {
-      const res = await axios.post("https://mark-i.onrender.com/api/chat", { message: input });
+      const res = await axios.post("https://mark-i.onrender.com/api/chat/", { message: input });
       setMessages((prev) => [...prev, { sender: "bot", text: res.data.response }]);
-    } catch {
-      alert("AI response failed!");
+    } catch (error) {
+      console.error("❌ AI Response Error:", error);
+      alert("AI response failed! Check console for details.");
     } finally {
       setLoading(false);
     }
@@ -35,7 +36,7 @@ const ChatBot = ({ setIsLoggedIn }) => {
     <>
       <Navbar setIsLoggedIn={setIsLoggedIn} />
       <div className="fixed inset-0 bg-gradient-to-br from-red-700 via-black to-yellow-600 opacity-90" />
-      
+
       <motion.div
         className="relative z-10 flex flex-col items-center justify-center min-h-screen text-white py-24 px-4"
         initial={{ opacity: 0 }}
@@ -111,6 +112,7 @@ const ChatBot = ({ setIsLoggedIn }) => {
 };
 
 export default ChatBot;
+
 
 
 

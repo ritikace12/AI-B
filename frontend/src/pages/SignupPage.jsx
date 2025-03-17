@@ -18,9 +18,11 @@ const SignupPage = () => {
       toast.success("Signup successful! Please log in.");
       navigate("/");
     } catch (err) {
+      console.error("❌ Signup Error:", err);
       toast.error(err.response?.data?.message || "Signup failed!");
     }
   };
+  
 
   return (
     <div className="flex flex-col min-h-screen bg-black relative overflow-hidden">

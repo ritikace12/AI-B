@@ -18,9 +18,11 @@ const LoginPage = () => {
       localStorage.setItem("token", res.data.token);
       navigate("/home");
     } catch (err) {
+      console.error("❌ Login Error:", err);
       toast.error(err.response?.data?.message || "Login failed!");
     }
   };
+  
 
   return (
     <div className="flex justify-center items-center h-screen bg-black relative overflow-hidden">
