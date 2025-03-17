@@ -47,7 +47,7 @@ const FeaturesPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="bg-gray-900 bg-opacity-80 p-6 rounded-lg shadow-lg border border-yellow-500 hover:shadow-yellow-500 transition-all transform hover:scale-105"
+            className="bg-black bg-opacity-80 p-6 rounded-lg shadow-lg border border-yellow-500 hover:shadow-yellow-500 transition-all transform hover:scale-105"
           >
             <h3 className="text-xl font-bold text-red-400">{feature.title}</h3>
             <p className="text-gray-300 mt-2">{feature.description}</p>
