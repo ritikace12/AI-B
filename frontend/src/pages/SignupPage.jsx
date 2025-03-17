@@ -14,7 +14,7 @@ const SignupPage = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5001/api/auth/register", { username, email, password });
+      await axios.post("https://mark-i.onrender.com/api/auth/register", { username, email, password });
       toast.success("Signup successful! Please log in.");
       navigate("/");
     } catch (err) {
