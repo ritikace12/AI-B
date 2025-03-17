@@ -14,8 +14,10 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://mark-one.netlify.app"], // Allow both local and deployed frontend
-    credentials: true, // Allow cookies (if needed)
+    origin: "*", // Allow all origins (Temporary for testing)
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
