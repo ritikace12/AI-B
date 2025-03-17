@@ -7,7 +7,7 @@ import SignupPage from "./pages/SignupPage";
 import HomePage from "./pages/HomePage";
 import FeaturesPage from "./pages/Features";
 import ChatBot from "./pages/ChatBot";
-import About from "./pages/About";
+import Constraints from "./pages/Constraints";
 import Contact from "./pages/Contact";
 
 const ProtectedRoute = ({ element }) => {
@@ -35,7 +35,7 @@ function App() {
           <Route path="/chatbot" element={<ProtectedRoute element={<ChatBot setIsLoggedIn={setIsLoggedIn} />} />} />
 
           <Route path="/features" element={<FeaturesPage />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/constraints" element={<Constraints />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>

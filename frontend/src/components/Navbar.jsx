@@ -33,7 +33,7 @@ const Navbar = ({ setIsLoggedIn }) => {
         </motion.h1>
 
         <div className="hidden md:flex space-x-6 text-base font-medium">
-          {["Home", "Features", "About"].map((item, index) => (
+          {["Home", "Features", "Constraints"].map((item, index) => (
             <motion.div
               key={index}
               whileHover={{ scale: 1.1, color: "#ffcc00" }}
