@@ -12,6 +12,11 @@ if (!GEMINI_API_KEY) {
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
+// ✅ ADD THIS TEST ROUTE
+router.get("/", (req, res) => {
+  res.json({ message: "✅ AI API is live!" });
+});
+
 router.post("/", async (req, res) => {
   const { message } = req.body;
 
@@ -37,6 +42,7 @@ router.post("/", async (req, res) => {
 });
 
 module.exports = router;
+
 
 
 
