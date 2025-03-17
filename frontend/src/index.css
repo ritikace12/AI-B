@@ -27,4 +27,15 @@
   }
   
   
+  @media (max-width: 640px) {
+    .chat-container {
+      width: 95%; /* Ensures the chat input stays inside */
+    }
+    .chat-input {
+      width: 100%;
+    }
+    .send-button {
+      min-width: 60px; /* Prevents button from overflowing */
+    }
+  }
   

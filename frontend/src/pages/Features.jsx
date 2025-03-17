@@ -10,6 +10,7 @@ const features = [
   { title: "Code Generation & Understanding", description: "Write and debug code in various programming languages." },
   { title: "Summarization", description: "Condense large amounts of text into clear summaries." },
   { title: "Question Answering", description: "Provide detailed answers across multiple domains." },
+  { title: "Limitations Awareness", description: "Acknowledge that I am still under development and may have inaccuracies." },
 ];
 
 const FeaturesPage = () => {
@@ -49,7 +50,7 @@ const FeaturesPage = () => {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             className="bg-black bg-opacity-80 p-6 rounded-lg shadow-lg border border-yellow-500 hover:shadow-yellow-500 transition-all transform hover:scale-105"
           >
-            <h3 className="text-xl font-bold text-red-400">{feature.title}</h3>
+            <h3 className="text-xl font-bold text-red-500">{feature.title}</h3>
             <p className="text-gray-300 mt-2">{feature.description}</p>
           </motion.div>
         ))}

@@ -53,7 +53,7 @@ const ConstraintsPage = () => {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             className="bg-black bg-opacity-80 p-6 rounded-lg shadow-lg border border-red-600 hover:shadow-red-600 transition-all transform hover:scale-105"
           >
-            <h3 className="text-xl font-bold text-red-600">{constraint.title}</h3>
+            <h3 className="text-xl font-bold text-red-500">{constraint.title}</h3>
             <p className="text-gray-300 mt-2">{constraint.description}</p>
           </motion.div>
         ))}
