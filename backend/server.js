@@ -10,7 +10,15 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors({ origin: process.env.FRONTEND_URL || "http://localhost:5173", credentials: true })); 
+const cors = require("cors");
+
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://mark-one.netlify.app"], // Allow both local and deployed frontend
+    credentials: true, // Allow cookies (if needed)
+  })
+);
+
 
 // Routes
 app.use("/api/auth", authRoutes);
