@@ -35,20 +35,24 @@ const ChatBot = ({ setIsLoggedIn }) => {
   return (
     <>
       <Navbar setIsLoggedIn={setIsLoggedIn} />
+
+      {/* Background Overlay */}
       <div className="fixed inset-0 bg-gradient-to-br from-red-700 via-black to-yellow-600 opacity-90" />
 
+      {/* Chat Container */}
       <motion.div
         className="relative z-10 flex flex-col items-center justify-center min-h-screen text-white py-24 px-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        <div className="w-full max-w-3xl p-6 bg-black/80 border border-red-600 rounded-xl shadow-2xl flex flex-col h-[75vh] backdrop-blur-lg justify-between mt-12">
-          <div className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
+        <div className="w-[92%] md:w-[60%] p-6 bg-black/80 border border-red-600 rounded-xl shadow-2xl flex flex-col h-[75vh] backdrop-blur-lg justify-between mt-12">
+          {/* Chat Messages */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
             {messages.map((msg, index) => (
               <div key={index} className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
                 <motion.div
-                  className={`relative max-w-[80%] p-4 rounded-lg text-lg whitespace-pre-wrap shadow-lg transition-all duration-300 border-2 ${
+                  className={`relative max-w-[85%] sm:max-w-[70%] md:max-w-[60%] p-4 rounded-lg text-lg whitespace-pre-wrap shadow-lg transition-all duration-300 border-2 ${
                     msg.sender === "user"
                       ? "border-red-500 bg-black text-white"
                       : "border-yellow-500 bg-black text-white"
@@ -89,6 +93,7 @@ const ChatBot = ({ setIsLoggedIn }) => {
             {loading && <div className="text-center text-red-500 animate-pulse">Processing...</div>}
           </div>
 
+          {/* Input Section */}
           <div className="mt-6 flex bg-black/70 border border-red-500 rounded-lg p-2">
             <input
               type="text"
@@ -112,6 +117,9 @@ const ChatBot = ({ setIsLoggedIn }) => {
 };
 
 export default ChatBot;
+
+
+
 
 
 

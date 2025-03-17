@@ -22,10 +22,9 @@ const LoginPage = () => {
       toast.error(err.response?.data?.message || "Login failed!");
     }
   };
-  
 
   return (
-    <div className="flex justify-center items-center h-screen bg-black relative overflow-hidden">
+    <div className="flex justify-center items-center min-h-screen bg-black relative overflow-hidden px-4">
       {/* Animated Background */}
       <motion.div 
         initial={{ opacity: 0 }}
@@ -39,9 +38,11 @@ const LoginPage = () => {
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="z-10 bg-opacity-95 bg-gray-950 p-8 rounded-lg shadow-2xl border-2 border-yellow-500 w-96"
+        className="z-10 bg-opacity-95 bg-gray-950 p-6 sm:p-8 rounded-lg shadow-2xl border-2 border-yellow-500 w-full max-w-md"
       >
-        <h2 className="text-3xl font-extrabold text-center text-yellow-400 mb-6 ">LOGIN</h2>
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-center text-yellow-400 mb-6">
+          LOGIN
+        </h2>
         
         <form onSubmit={handleLogin} className="space-y-4">
           <div className="relative">
@@ -49,7 +50,7 @@ const LoginPage = () => {
             <input 
               type="email" 
               placeholder="Email" 
-              className="w-full p-3 pl-10 rounded bg-gray-900 text-white border border-red-500 focus:ring-2 focus:ring-yellow-400"
+              className="w-full p-3 pl-10 rounded bg-gray-900 text-white border border-red-500 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
               value={email} 
               onChange={(e) => setEmail(e.target.value)} 
               required 
@@ -61,7 +62,7 @@ const LoginPage = () => {
             <input 
               type="password" 
               placeholder="Password" 
-              className="w-full p-3 pl-10 rounded bg-gray-900 text-white border border-red-500 focus:ring-2 focus:ring-yellow-400"
+              className="w-full p-3 pl-10 rounded bg-gray-900 text-white border border-red-500 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
               value={password} 
               onChange={(e) => setPassword(e.target.value)} 
               required 
@@ -78,7 +79,7 @@ const LoginPage = () => {
           </motion.button>
         </form>
         
-        <p className="text-center mt-4 text-gray-300">
+        <p className="text-center mt-4 text-gray-300 text-sm sm:text-base">
           Don't have an account? 
           <Link to="/signup" className="text-yellow-400 hover:underline ml-1">Sign Up</Link>
         </p>
@@ -88,5 +89,6 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
 
 
