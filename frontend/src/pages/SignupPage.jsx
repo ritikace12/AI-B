@@ -24,7 +24,7 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-black relative px-4">
+    <div className="flex flex-col ml-1 mr-1 justify-center items-center min-h-screen bg-black relative px-4">
       {/* Background Animation */}
       <motion.div 
         initial={{ opacity: 0 }}
