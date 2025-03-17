@@ -22,7 +22,7 @@ const ChatBot = ({ setIsLoggedIn }) => {
     setLoading(true);
 
     try {
-      const res = await axios.post("https://mark-i.onrender.com", { message: input });
+      const res = await axios.post("https://mark-i.onrender.com/api/chat", { message: input });
       setMessages((prev) => [...prev, { sender: "bot", text: res.data.response }]);
     } catch {
       alert("AI response failed!");
