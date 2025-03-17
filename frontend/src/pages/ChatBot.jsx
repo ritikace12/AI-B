@@ -1,74 +1,122 @@
 import { useState } from "react";
+import { FaPaperPlane, FaCopy } from "react-icons/fa";
+import axios from "axios";
 import { motion } from "framer-motion";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import Navbar from "../components/Navbar";
 
-const ChatPage = () => {
+const ChatBot = ({ setIsLoggedIn }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSendMessage = () => {
-    if (input.trim() === "") return;
+  const sendMessage = async () => {
+    if (!input.trim()) return;
 
-    setMessages([...messages, { text: input, sender: "user" }]);
+    const userMessage = { sender: "user", text: input };
+    setMessages((prev) => [...prev, userMessage]);
     setInput("");
+    setLoading(true);
 
-    // Simulate bot response (replace this with an actual API call)
-    setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        { text: "Processing your request...", sender: "bot" },
-      ]);
-    }, 1000);
+    try {
+      const res = await axios.post("https://mark-i.onrender.com/api/chat/", { message: input });
+      setMessages((prev) => [...prev, { sender: "bot", text: res.data.response }]);
+    } catch (error) {
+      console.error("❌ AI Response Error:", error);
+      alert("AI response failed! Check console for details.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="flex flex-col h-screen bg-black text-white">
-      {/* Header */}
-      <div className="p-4 bg-red-700 text-center font-bold text-xl">
-        AI Chatbot
-      </div>
+    <>
+      <Navbar setIsLoggedIn={setIsLoggedIn} />
 
-      {/* Chat Messages Section */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3">
-        {messages.map((msg, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className={`max-w-xs px-4 py-2 rounded-lg ${
-              msg.sender === "user"
-                ? "bg-red-600 self-end text-right"
-                : "bg-gray-800 self-start text-left"
-            }`}
-          >
-            {msg.text}
-          </motion.div>
-        ))}
-      </div>
+      {/* Background Overlay */}
+      <div className="fixed inset-0 bg-gradient-to-br from-red-700 via-black to-yellow-600 opacity-90" />
 
-      {/* Chat Input Section */}
-      <div className="p-3 bg-gray-900 flex items-center w-full rounded-t-lg">
-        <input
-          type="text"
-          placeholder="Type your message..."
-          className="flex-1 p-3 bg-transparent text-white outline-none"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-        />
-        <button
-          onClick={handleSendMessage}
-          className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-yellow-500 transition-all"
-        >
-          Send
-        </button>
-      </div>
-    </div>
+      {/* Chat Container */}
+      <motion.div
+        className="relative z-10 flex flex-col items-center justify-center min-h-screen text-white py-24 px-4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <div className="w-[92%] md:w-[60%] p-6 bg-black/80 border border-red-600 rounded-xl shadow-2xl flex flex-col h-[75vh] backdrop-blur-lg justify-between mt-12">
+          {/* Chat Messages */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
+            {messages.map((msg, index) => (
+              <div key={index} className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
+                <motion.div
+                  className={`relative max-w-[85%] sm:max-w-[70%] md:max-w-[60%] p-4 rounded-lg text-lg whitespace-pre-wrap shadow-lg transition-all duration-300 border-2 ${
+                    msg.sender === "user"
+                      ? "border-red-500 bg-black text-white"
+                      : "border-yellow-500 bg-black text-white"
+                  }`}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      code({ node, inline, className, children, ...props }) {
+                        return !inline ? (
+                          <SyntaxHighlighter style={dark} language="javascript" PreTag="div" {...props}>
+                            {String(children).replace(/\n$/, "")}
+                          </SyntaxHighlighter>
+                        ) : (
+                          <code className="bg-gray-800 text-yellow-400 p-1 rounded" {...props}>
+                            {children}
+                          </code>
+                        );
+                      },
+                    }}
+                  >
+                    {msg.text}
+                  </ReactMarkdown>
+                  {msg.sender === "bot" && (
+                    <button
+                      className="absolute top-2 right-2 p-1 bg-black/50 rounded-md text-gray-400 hover:text-white"
+                      onClick={() => navigator.clipboard.writeText(msg.text)}
+                    >
+                      <FaCopy />
+                    </button>
+                  )}
+                </motion.div>
+              </div>
+            ))}
+            {loading && <div className="text-center text-red-500 animate-pulse">Processing...</div>}
+          </div>
+
+          {/* Input Section */}
+          <div className="mt-6 flex bg-black/70 border border-red-500 rounded-lg p-2">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              className="flex-1 p-4 rounded-l-lg bg-transparent text-white focus:ring-2 focus:ring-red-500 placeholder-gray-400"
+              placeholder="Type your message..."
+            />
+            <motion.button
+              onClick={sendMessage}
+              whileHover={{ scale: 1.1 }}
+              className="bg-red-600 px-6 py-3 hover:bg-yellow-500 transition-all text-black ml-2"
+            >
+              <FaPaperPlane />
+            </motion.button>
+          </div>
+        </div>
+      </motion.div>
+    </>
   );
 };
 
-export default ChatPage;
-
+export default ChatBot;
 
 
 
