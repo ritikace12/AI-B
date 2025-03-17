@@ -93,23 +93,23 @@ const ChatBot = ({ setIsLoggedIn }) => {
             {loading && <div className="text-center text-red-500 animate-pulse">Processing...</div>}
           </div>
 
-          {/* Input Section */}
-          <div className="mt-6 flex bg-black/70 border border-red-500 rounded-lg p-2">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              className="flex-1 p-4 rounded-l-lg bg-transparent text-white focus:ring-2 focus:ring-red-500 placeholder-gray-400"
-              placeholder="Type your message..."
-            />
-            <motion.button
-              onClick={sendMessage}
-              whileHover={{ scale: 1.1 }}
-              className="bg-red-600 px-6 py-3 hover:bg-yellow-500 transition-all text-black ml-2"
-            >
-              <FaPaperPlane />
-            </motion.button>
-          </div>
+          <div className="mt-6 flex w-full bg-black/70 border border-red-500 rounded-lg p-2 items-center">
+  <input
+    type="text"
+    value={input}
+    onChange={(e) => setInput(e.target.value)}
+    className="flex-1 p-3 sm:p-4 rounded-l-lg bg-transparent text-white focus:ring-2 focus:ring-red-500 placeholder-gray-400 w-full"
+    placeholder="Type your message..."
+  />
+  <motion.button
+    onClick={sendMessage}
+    whileHover={{ scale: 1.1 }}
+    className="bg-red-600 p-3 sm:px-6 hover:bg-yellow-500 transition-all text-black rounded-r-lg"
+  >
+    <FaPaperPlane />
+  </motion.button>
+</div>
+
         </div>
       </motion.div>
     </>
