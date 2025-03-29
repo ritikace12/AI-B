@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 import { motion } from "framer-motion";
+import api from "../utils/axios";
 
 const SignupPage = () => {
   const [username, setUsername] = useState("");
@@ -14,7 +14,7 @@ const SignupPage = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://ai-b.onrender.com/api/auth/register", { username, email, password });
+      await api.post("/api/auth/register", { username, email, password });
       toast.success("Signup successful! Please log in.");
       navigate("/");
     } catch (err) {

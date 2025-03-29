@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import { motion } from "framer-motion";
+import api from "../utils/axios";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +13,7 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://ai-b.onrender.com/api/auth/login", { email, password });
+      const res = await api.post("/api/auth/login", { email, password });
       toast.success("Login successful!");
       localStorage.setItem("token", res.data.token);
       navigate("/home");
